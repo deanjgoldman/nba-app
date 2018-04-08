@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+  <title>NBA-API</title>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  </head>
+<body>
+<div>
+  {% if form %}
+  <form action="" method="post">
+      {{ form.csrf_token }}
+      <div class="select">
+      {{ form.team_name.label }} {{ form.team_name }}
+      <div>
+      <div class="select">
+      {{ form.season.label }} {{ form.season }}
+      <div>
+      <input type="submit">
+  </form>
+  {% endif %}
+
+  {% if roster %}
+  <div> {{ roster|safe }} </div>
+  {% endif %}
+</div>
+</body>
+</html>
