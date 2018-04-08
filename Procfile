@@ -1,1 +1,1 @@
-web: gunicorn nba-app:app
+web: gunicorn nbapp:app
