@@ -1,9 +1,9 @@
-from nba_py import team
+from nba_py import team, constants
 from random import sample
 from datetime import datetime
 
-team_names = [team.TEAMS[item]['name']for item in team.TEAMS]
-team_ids = [team.TEAMS[item]['id']for item in team.TEAMS]
+team_names = [team.TEAMS[item]['name']for item in constants.TEAMS]
+team_ids = [team.TEAMS[item]['id']for item in constants.TEAMS]
 team_dict = dict(zip(team_names, team_ids))
 team_names = sample(team_names, len(team_names))
 
