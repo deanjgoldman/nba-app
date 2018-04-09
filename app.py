@@ -2,12 +2,10 @@ from flask import Flask, render_template, request
 from flask_wtf.csrf import CSRFProtect
 from flask_wtf import FlaskForm
 from wtforms import SelectField
-from redis import Redis
-from rq import Queue
 import nbapi
 
 app = Flask(__name__)
-q = Queue(connection=Redis())
+
 
 app.secret_key = 's3cr3t'
 csrf = CSRFProtect(app)
@@ -21,16 +19,17 @@ class TeamForm(FlaskForm):
     season = SelectField("Season", choices=seasons)
 
 
-@app.route("/", methods=['GET','POST'])
+@app.route("/", methods=['GET', 'POST'])
 def index():
     if request.method == 'GET':
         form = TeamForm()
         return render_template("index.html", form=form)
     else:
-
-        roster = q.enqueue(nbapi.get_roster(request.values["team_name"],
-                                  request.values['season']))
+        print(request.values)
+        roster = nbapi.get_roster(request.values["team_name"],
+                                  request.values['season'])
         return render_template("index.html", roster=roster.to_html())
+
 
 if __name__ == "__main__":
     app.run(debug=True)
