@@ -5,3 +5,4 @@ pandas
 numpy
 git+git://github.com/seemethere/nba_py.git
 jsonfield
+rq

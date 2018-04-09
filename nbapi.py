@@ -2,6 +2,7 @@ from nba_py import team, constants
 from random import sample
 from datetime import datetime
 
+
 team_names = [constants.TEAMS[item]['name']for item in constants.TEAMS]
 team_ids = [constants.TEAMS[item]['id']for item in constants.TEAMS]
 team_dict = dict(zip(team_names, team_ids))
@@ -36,6 +37,7 @@ def seasons():
         else:
             seasons.append(x + '-' + x[2] + str(y))
     return seasons
+
 
 if __name__ == "__main__":
     roster = get_roster('Kings', '2017-18')

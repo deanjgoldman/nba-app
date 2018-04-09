@@ -2,9 +2,12 @@ from flask import Flask, render_template, request
 from flask_wtf.csrf import CSRFProtect
 from flask_wtf import FlaskForm
 from wtforms import SelectField
+from redis import Redis
+from rq import Queue
 import nbapi
 
 app = Flask(__name__)
+q = Queue(connection=Redis())
 
 app.secret_key = 's3cr3t'
 csrf = CSRFProtect(app)
@@ -24,8 +27,9 @@ def index():
         form = TeamForm()
         return render_template("index.html", form=form)
     else:
-        roster = nbapi.get_roster(request.values["team_name"],
-                                  request.values['season'])
+
+        roster = q.enqueue(nbapi.get_roster(request.values["team_name"],
+                                  request.values['season']))
         return render_template("index.html", roster=roster.to_html())
 
 if __name__ == "__main__":
