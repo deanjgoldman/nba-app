@@ -2,7 +2,6 @@ from flask import Flask, render_template, request
 from flask_wtf.csrf import CSRFProtect
 from flask_wtf import FlaskForm
 from wtforms import SelectField
-
 import nbapi
 
 app = Flask(__name__)
@@ -25,6 +24,7 @@ def index():
         form = TeamForm()
         return render_template("index.html", form=form)
     else:
+        print("POST")
         roster = nbapi.get_roster(request.values["team_name"],
                                   request.values['season'])
         return render_template("index.html", roster=roster.to_html())
