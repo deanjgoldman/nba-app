@@ -24,7 +24,6 @@ def index():
         form = TeamForm()
         return render_template("index.html", form=form)
     else:
-        print("POST")
         roster = nbapi.get_roster(request.values["team_name"],
                                   request.values['season'])
         return render_template("index.html", roster=roster.to_html())
